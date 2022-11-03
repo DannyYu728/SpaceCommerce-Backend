@@ -1,0 +1,24 @@
+[
+  {
+    "username": "BobisFirst",
+    "password": "Password",
+    "email": "BobKing@gmail.com",
+    "name": "Bob Smith",
+    "avatar": "",
+    "image": [],
+    "likes": 1,
+    "favoriteRestaurants": [],
+    "friendsList": []
+  },
+  {
+    "username": "TomisSecond",
+    "password": "Password2",
+    "email": "TommyBoi@gmail.com",
+    "name": "Tom Johns",
+    "avatar": "",
+    "image": [],
+    "rating": 1,
+    "favoriteRestaurants": [],
+    "friendsList": []
+  }
+]
