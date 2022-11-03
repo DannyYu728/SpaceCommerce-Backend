@@ -15,7 +15,7 @@ export const getImage = async (req, res) => {
     const { id } = req.params;
     const image = await Image.findById(id)
       .populate("source")
-      .populate("restaurant");
+      .populate("spaceItem");
 
     if (image) {
       return res.json(image);

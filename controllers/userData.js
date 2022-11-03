@@ -14,8 +14,8 @@ export const getUser = async (req, res) => {
   try {
     const {id} = req.params;
     const user = await UserData.findById(id)
-      .populate("friendsList")
-      .populate("favoriteRestaurants")
+      .populate("listing")
+      .populate("favoriteItems")
       .populate("image");
 
     if (user) {
@@ -32,8 +32,8 @@ export const getUser = async (req, res) => {
 export const getUsername = async (req, res) => {
   try {
     const user = await UserData.find({username: req.params.username})
-      .populate("friendsList")
-      .populate("favoriteRestaurants")
+      .populate("listing")
+      .populate("favoriteItems")
       .populate("image");
 
     if (user) {
