@@ -1,15 +1,17 @@
 import argon2 from 'argon2'
 import { V4 } from 'paseto'
-import { createPrivateKey } from 'crypto'
+import {privateKeyObject, publicKeyObject} from "../helpers/keys.js"
 
 import UserData from "../models/UserData.js";
 
+
+
 // for development purposes
-let key = 'superdupergoodkey'
+let key = privateKeyObject
 
 // for production
 if (process.env.NODE_ENV === 'production') {
-  const key = createPrivateKey(privateKey)
+  const key = publicKeyObject
 }
 
 export const getUsers = async (req, res) => {
@@ -40,7 +42,7 @@ export const signUp = async (req, res) => {
       email: user.email
     }
 
-    const token = V4.sign(payload, key, {
+    const token = await V4.sign(payload, key, {
       expiresIn: '2 hours'
     })
     res.status(201).json({ token })
@@ -62,8 +64,8 @@ export const signIn = async (req, res) => {
         username: user.username,
         email: user.email
       }
-
-      const token = V4.sign(payload, key, {
+      
+      const token = await V4.sign(payload, key, {
         expiresIn: '2 hours'
       })
       res.status(201).json({ token })
@@ -78,7 +80,7 @@ export const signIn = async (req, res) => {
 
 export const verify = async (req, res) => {
   try {
-    const payload = V4.verify(token, key)
+    const payload = await V4.verify(token, key)
     if (payload) {
       res.json(payload)
     }
@@ -95,7 +97,7 @@ export const changePassword = async (req, res) => {
       'username email password_digest'
     )
 
-    if (await argon2.compare(password, user.password_digest)) {
+    if (await argon2.verify(password, user.password_digest)) {
       user.password_digest = await argon2.hash(newPassword)
       user.save()
       const payload = {
@@ -104,7 +106,7 @@ export const changePassword = async (req, res) => {
         email: user.email,
       }
 
-      const token = V4.sign(payload, key)
+      const token = await V4.sign(payload, key)
       res.status(201).json({ token })
     } else {
       res.status(401).send('Invalid Credentials')
@@ -125,8 +127,8 @@ export const getUser = async (req, res) => {
         username: user.username,
         email: user.email,
       }
-
-      const token = V4.sign(payload, key)
+      
+      const token = await V4.sign(payload, key)
       res.status(201).json({ token })
     }
     res.status(404).json({ message: 'Username not found!' })
