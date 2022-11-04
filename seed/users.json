@@ -1,0 +1,12 @@
+[
+  {
+    "username": "Danny",
+  "password_digest": "12345678",
+  "email": "email@email.com"
+  },
+  {
+    "username": "Connor",
+    "password_digest": "12345678",
+    "email": "email@email.com"
+  }
+]
