@@ -130,7 +130,7 @@ export const getUser = async (req, res) => {
     if (user) {
       const payload = {
         _id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       }

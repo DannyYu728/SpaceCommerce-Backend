@@ -24,10 +24,10 @@ export const getUsers = async (req, res) => {
 
 export const signUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { username, email, password } = req.body
     const password_digest = await argon2.hash(password)
     const user = new UserData({
-      name,
+      username,
       email,
       password_digest,
     })
@@ -36,9 +36,8 @@ export const signUp = async (req, res) => {
 
     const payload = {
       _id: user._id,
-      name: user.name,
-      email: user.email,
-      exp: parseInt(exp.getTime() / 1000),
+      username: user.username,
+      email: user.email
     }
 
     const token = V4.sign(payload, key, {
@@ -53,16 +52,15 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
   try {
-    const { email, password } = req.body
-    const user = await UserData.findOne({ email: email }).select(
-      'name email password_digest'
+    const { username, password } = req.body
+    const user = await UserData.findOne({ username: username }).select(
+      'username email password_digest'
     )
     if (await argon2.verify(user.password_digest, password )) {
       const payload = {
         _id: user._id,
-        name: user.name,
-        email: user.email,
-        exp: parseInt(exp.getTime() / 1000),
+        username: user.username,
+        email: user.email
       }
 
       const token = V4.sign(payload, key, {
@@ -80,7 +78,6 @@ export const signIn = async (req, res) => {
 
 export const verify = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]
     const payload = V4.verify(token, key)
     if (payload) {
       res.json(payload)
@@ -91,31 +88,57 @@ export const verify = async (req, res) => {
   }
 }
 
+export const changePassword = async (req, res) => {
+  try {
+    const { password, newPassword, username } = req.body
+    const user = await UserData.findOne({ username: username }).select(
+      'username email password_digest'
+    )
+
+    if (await argon2.compare(password, user.password_digest)) {
+      user.password_digest = await argon2.hash(newPassword)
+      user.save()
+      const payload = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+      }
+
+      const token = V4.sign(payload, key)
+      res.status(201).json({ token })
+    } else {
+      res.status(401).send('Invalid Credentials')
+    }
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({ error: error.message })
+  }
+}
+
 export const getUser = async (req, res) => {
   try {
     const {id} = req.params;
     const user = await UserData.findById(id)
-      .populate("listing")
-      .populate("favoriteItems")
-      .populate("image");
-
     if (user) {
-      return res.json(user);
-    }
+      const payload = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+      }
 
-    res.status(404).json({message: "Username not found!"});
+      const token = V4.sign(payload, key)
+      res.status(201).json({ token })
+    }
+    res.status(404).json({ message: 'Username not found!' })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({error: error.message});
+    console.log(error.message)
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
 export const getUsername = async (req, res) => {
   try {
     const user = await UserData.find({username: req.params.username})
-      .populate("listing")
-      .populate("favoriteItems")
-      .populate("image");
 
     if (user) {
       return res.json(user);
@@ -141,7 +164,7 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const {id} = req.params;
-    const user = await UserData.findByIdAndUpdate(id, req.body);
+    const user = await UserData.findByIdAndUpdate(id, req.body, { new: true });
     res.status(201).json(user);
   } catch (error) {
     console.error(error);
