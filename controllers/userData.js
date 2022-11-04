@@ -93,10 +93,15 @@ export const verify = async (req, res) => {
 export const changePassword = async (req, res) => {
   try {
     const { id } = req.params
-    const { password, newPassword } = req.body
-    const user = UserData.findById(id).select(
+
+    const { password, newPassword, username } = req.body
+    // const user = UserData.findById(id).select(
+    //   'username email password_digest'
+    // )
+    const user = await UserData.findOne({ username: username }).select(
       'username email password_digest'
     )
+
     if (await bcrypt.compare(password, user.password_digest)) {
       user.password_digest = await bcrypt.hash(newPassword, SALT_ROUNDS)
       user.save()
