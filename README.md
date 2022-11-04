@@ -15,7 +15,7 @@ Fork and clone this repository and Change into the new directory. Open a termina
 Danny Yu, Kyle Anthony, Connor Harris, Jacob Csonka, Andrea Alonso 
 
 # How to use
-On your web browser, go to http://localhost:3000 to view the home page and available endpoints 
+On your web browser, go to https://spacecommerce.up.railway.app/ to view the home page and available endpoints. To view different items, type in https://spacecommerce.up.railway.app/spaceItems 
 
 # License
 This project is licensed under the GNU General Public License v3.0.
