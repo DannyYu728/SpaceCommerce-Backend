@@ -6,7 +6,7 @@
     "price": 1400000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -18,31 +18,31 @@
     "price": 800000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
   },
   {
     "name": "Jupiter",
-    "type": "Gas Planet",
+    "type": "GasPlanet",
     "size": "Giant",
     "price": 300000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
   },
   {
     "name": "Saturn",
-    "type": "Gas planet",
+    "type": "GasPlanet",
     "size": "Giant",
     "price": 600000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -54,7 +54,7 @@
     "price": 100000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -66,7 +66,7 @@
     "price": 150000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -78,7 +78,7 @@
     "price": 60000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -90,7 +90,7 @@
     "price": 50000000,
     "location": "The Solar System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -103,7 +103,7 @@
     "price": 5000000,
     "location": "Terran System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -115,7 +115,7 @@
     "price": 3000000,
     "location": "Martian System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -127,7 +127,7 @@
     "price": 1800000000,
     "location": "System 9",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -139,7 +139,7 @@
     "price": 1200000,
     "location": "Martian System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -151,7 +151,7 @@
     "price": 5700000000,
     "location": "Orien Arm",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -163,7 +163,7 @@
     "price": 10000500,
     "location": "Endor System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -175,7 +175,7 @@
     "price": 600000,
     "location": "Topra System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -187,7 +187,7 @@
     "price": 5000,
     "location": "Endor System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": false
@@ -199,7 +199,7 @@
     "price": 1200000000,
     "location": "System 9",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -211,7 +211,7 @@
     "price": 4300000000,
     "location": "Sector 9",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -223,7 +223,7 @@
     "price": 1000000,
     "location": "Topra System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true
@@ -235,7 +235,7 @@
     "price": 10000,
     "location": "Endor System",
     "image": [],
-    "owner": "",
+    "owner": "6362761529ad5a3481dc9b2f",
     "rating": 0,
     "isBought": false,
     "isHab": true

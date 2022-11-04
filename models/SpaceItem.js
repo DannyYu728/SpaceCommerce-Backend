@@ -18,7 +18,7 @@ let SpaceItem = new Schema({
       "Star",
       "Station",
       "Ship",
-      "Gas planet",
+      "GasPlanet",
       "Astroid",
       "Specialty",
       "Colony",
