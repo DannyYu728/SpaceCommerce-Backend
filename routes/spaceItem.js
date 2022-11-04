@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as controllers from "../controllers/spaceItem.js";
+import restrict from "../helpers/restrict.js";
 
 const router = Router();
 

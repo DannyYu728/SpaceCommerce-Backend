@@ -3,6 +3,10 @@ import * as controllers from "../controllers/userData.js";
 
 const router = Router();
 
+router.post('/signUp', controllers.signUp)
+router.post('/signIn', controllers.signIn)
+router.get('/verify', controllers.verify)
+router.put('/changePassword/:id', controllers.changePassword)
 router.get("/", controllers.getUsers);
 router.get("/id/:id", controllers.getUser);
 router.get('/username/:username', controllers.getUsername);
