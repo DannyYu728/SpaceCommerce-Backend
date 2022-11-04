@@ -143,10 +143,6 @@ export const getUser = async (req, res) => {
 export const getUsername = async (req, res) => {
   try {
     const user = await UserData.find({username: req.params.username})
-      .populate("listing")
-      .populate("favoriteItems")
-      .populate("image");
-
     if (user) {
       return res.json(user);
     }
