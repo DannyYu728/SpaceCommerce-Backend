@@ -102,7 +102,7 @@ export const changePassword = async (req, res) => {
       user.save()
       const payload = {
         _id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       }
