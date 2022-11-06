@@ -6,7 +6,7 @@ import imageRoutes from "./image.js";
 
 const router = Router();
 
-router.get("/", (req, res) => res.redirect("/users"));
+router.get("/", (req, res) => res.send("This is the api root!"));
 
 router.use("/users", userRoutes);
 router.use("/spaceItems", spaceItemRoutes);
