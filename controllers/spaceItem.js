@@ -36,7 +36,7 @@ export const createSpaceItem = async (req, res) => {
     spaceItem.owner = payload._id;
     await spaceItem.save();
     await User.findByIdAndUpdate(payload._id, {
-      $push: {"listing": payload._id}
+      $push: {"listing": spaceItem._id}
     });
     res.status(201).json(spaceItem);
   } catch (error) {
