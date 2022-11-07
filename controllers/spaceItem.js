@@ -34,7 +34,7 @@ export const createSpaceItem = async (req, res) => {
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
     const user = User.findById(payload._id);
     const spaceItem = new SpaceItem(req.body);
-    spaceItem.owner = user;
+    spaceItem.owner = user._id;
     await spaceItem.save();
     user.listing.push(spaceItem);
     await user.save();
