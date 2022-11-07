@@ -36,7 +36,7 @@ export const createSpaceItem = async (req, res) => {
     const spaceItem = new SpaceItem(req.body);
     spaceItem.owner = user._id;
     await spaceItem.save();
-    console.log(user)
+    console.log(user.listing)
     user.listing.push(spaceItem);
     await user.save();
     res.status(201).json(spaceItem);
