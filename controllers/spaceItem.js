@@ -1,4 +1,5 @@
 import SpaceItem from "../models/SpaceItem.js";
+import User from "../models/UserData.js";
 
 export const getSpaceItems = async (req, res) => {
   try {
@@ -28,8 +29,14 @@ export const getSpaceItem = async (req, res) => {
 
 export const createSpaceItem = async (req, res) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    const payload = jwt.verify(token, process.env.TOKEN_KEY);
+    const user = User.findById(payload._id);
     const spaceItem = new SpaceItem(req.body);
+    spaceItem.owner = user;
     await spaceItem.save();
+    user.listing.push(spaceItem);
+    await user.save();
     res.status(201).json(spaceItem);
   } catch (error) {
     console.error(error);
