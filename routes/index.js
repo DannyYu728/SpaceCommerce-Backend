@@ -10,6 +10,6 @@ router.get("/", (req, res) => res.send("This is the api root!"));
 
 router.use("/users", userRoutes);
 router.use("/spaceItems", spaceItemRoutes);
-router.use("/images", imageRoutes);
+router.use("/image", imageRoutes);
 
 export default router;
