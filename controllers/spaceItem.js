@@ -1,5 +1,6 @@
 import SpaceItem from "../models/SpaceItem.js";
 import User from "../models/UserData.js";
+import jwt from 'jsonwebtoken'
 
 export const getSpaceItems = async (req, res) => {
   try {
