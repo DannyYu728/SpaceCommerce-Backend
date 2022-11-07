@@ -2,7 +2,7 @@ import SpaceItem from "../models/SpaceItem.js";
 
 export const getSpaceItems = async (req, res) => {
   try {
-    const spaceItems = await SpaceItem.find();
+    const spaceItems = await SpaceItem.find().populate("image");
     res.json(spaceItems);
   } catch (error) {
     console.error(error);
