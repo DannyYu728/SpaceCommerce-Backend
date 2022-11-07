@@ -15,7 +15,7 @@ export const getSpaceItems = async (req, res) => {
 export const getSpaceItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const spaceItem = await SpaceItem.findById(id).populate("image");
+    const spaceItem = await SpaceItem.findById(id).populate("image").populate("owner");
 
     if (spaceItem) {
       return res.json(spaceItem);

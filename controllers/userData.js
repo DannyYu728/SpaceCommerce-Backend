@@ -126,12 +126,13 @@ export const changePassword = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const { id } = req.params
-    const user = await UserData.findById(id)
+    const user = await UserData.findById(id).populate("listing");
     if (user) {
       const payload = {
         _id: user._id,
         username: user.username,
         email: user.email,
+        listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
       }
 
