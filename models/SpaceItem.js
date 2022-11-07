@@ -32,7 +32,7 @@ let SpaceItem = new Schema({
   },
   price: { type: Number, required: true },
   location: { type: String, required: true },
-  image: [{ type: Schema.Types.ObjectId, ref: "images" }],
+  image: [{ type: Schema.Types.ObjectId, ref: "image" }],
   owner: { type: Schema.Types.ObjectId, ref: "userDatas" },
   rating: { type: Number },
   isBought: { type: Boolean },

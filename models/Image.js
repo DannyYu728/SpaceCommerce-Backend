@@ -6,4 +6,4 @@ let Image = new Schema({
   image: { type: String },
 });
 
-export default mongoose.model("images", Image);
+export default mongoose.model("image", Image);
