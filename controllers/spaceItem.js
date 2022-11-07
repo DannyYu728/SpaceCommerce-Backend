@@ -1,6 +1,6 @@
 import SpaceItem from "../models/SpaceItem.js";
 import User from "../models/UserData.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export const getSpaceItems = async (req, res) => {
   try {
@@ -32,9 +32,9 @@ export const createSpaceItem = async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
-    const id = payload._id
+    const id = payload._id;
     const user = User.findById(payload._id);
-    console.log("user id: ", user._id)
+    console.log("user: ", user);
     const spaceItem = new SpaceItem(req.body);
     spaceItem.owner = user._id;
     await spaceItem.save();
