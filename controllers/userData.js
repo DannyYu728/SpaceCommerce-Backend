@@ -127,18 +127,19 @@ export const getUser = async (req, res) => {
   try {
     const { id } = req.params
     const user = await UserData.findById(id)
-    if (user) {
-      const payload = {
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        exp: parseInt(exp.getTime() / 1000),
-      }
+    // if (user) {
+    //   const payload = {
+    //     _id: user._id,
+    //     username: user.username,
+    //     email: user.email,
+    //     exp: parseInt(exp.getTime() / 1000),
+    //   }
 
-      const token = jwt.sign(payload, TOKEN_KEY)
-      res.status(201).json({ token })
-    }
-    res.status(404).json({ message: 'Username not found!' })
+    //   const token = jwt.sign(payload, TOKEN_KEY)
+    //   res.status(201).json({ token })
+    // }
+    // res.status(404).json({ message: 'Username not found!' })
+    res.status(201).json(user)
   } catch (error) {
     console.log(error.message)
     res.status(500).json({ error: error.message })
