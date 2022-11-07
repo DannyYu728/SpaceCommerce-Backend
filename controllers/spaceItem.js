@@ -32,14 +32,12 @@ export const createSpaceItem = async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
-    const id = payload._id;
-    const user = User.findById(payload._id);
-    console.log("user: ", user);
     const spaceItem = new SpaceItem(req.body);
-    spaceItem.owner = user._id;
+    spaceItem.owner = payload._id;
     await spaceItem.save();
-    user.listing.push(spaceItem);
-    await user.save();
+    await User.findByIdAndUpdate(payload._id, {
+      $push: {"listing": payload._id}
+    });
     res.status(201).json(spaceItem);
   } catch (error) {
     console.error(error);
