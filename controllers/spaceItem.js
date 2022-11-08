@@ -45,6 +45,27 @@ export const createSpaceItem = async (req, res) => {
   }
 };
 
+export const buySpaceItem = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const payload = jwt.verify(token, process.env.TOKEN_KEY);
+    const spaceItem = await SpaceItem.findByIdAndUpdate(id, {
+      $set: {owner: payload._id}
+    });
+    const prevOwner = id
+    await User.findByIdAndUpdate(prevOwner, {
+      $pull: {"listing": spaceItem._id}
+    });
+    await User.findByIdAndUpdate(payload._id, {
+      $push: {"listing": spaceItem._id}
+    });
+    res.status(201).json(spaceItem);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const updateSpaceItem = async (req, res) => {
   try {
     const { id } = req.params;

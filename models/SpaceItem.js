@@ -35,7 +35,6 @@ let SpaceItem = new Schema({
   image: [{ type: Schema.Types.ObjectId, ref: "image" }],
   owner: { type: Schema.Types.ObjectId, ref: "userDatas" },
   rating: { type: Number },
-  isBought: { type: Boolean },
   isHab: { type: Boolean },
 });
 

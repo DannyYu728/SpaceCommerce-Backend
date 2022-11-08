@@ -8,6 +8,7 @@ const router = Router();
 router.get("/", controllers.getSpaceItems);
 router.get("/id/:id", controllers.getSpaceItem);
 router.post("/", controllers.createSpaceItem);
+router.put("/buy/:id", controllers.buySpaceItem);
 router.put("/id/:id", controllers.updateSpaceItem);
 router.delete("/id/:id", controllers.deleteSpaceItem);
 
