@@ -40,6 +40,10 @@ export const signUp = async (req, res) => {
     const payload = {
       _id: user._id,
       username: user.username,
+      avatar: user.avatar,
+      rating: user.rating,
+      favoriteItems: user.favoriteItems,
+      listing: user.listing,
       exp: parseInt(exp.getTime() / 1000),
     }
 
@@ -61,6 +65,10 @@ export const signIn = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
+        avatar: user.avatar,
+        rating: user.rating,
+        favoriteItems: user.favoriteItems,
+        listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
       }
 
@@ -106,6 +114,10 @@ export const changePassword = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
+        avatar: user.avatar,
+        rating: user.rating,
+        favoriteItems: user.favoriteItems,
+        listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
       }
 
@@ -128,6 +140,9 @@ export const getUser = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
+        avatar: user.avatar,
+        rating: user.rating,
+        favoriteItems: user.favoriteItems,
         listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
       }
