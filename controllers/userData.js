@@ -40,7 +40,6 @@ export const signUp = async (req, res) => {
     const payload = {
       _id: user._id,
       username: user.username,
-      email: user.email,
       exp: parseInt(exp.getTime() / 1000),
     }
 
@@ -62,7 +61,6 @@ export const signIn = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
-        email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       }
 
@@ -108,7 +106,6 @@ export const changePassword = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
-        email: user.email,
         exp: parseInt(exp.getTime() / 1000),
       }
 
@@ -131,7 +128,6 @@ export const getUser = async (req, res) => {
       const payload = {
         _id: user._id,
         username: user.username,
-        email: user.email,
         listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
       }
@@ -184,7 +180,10 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const {id} = req.params;
+    const token = req.headers.authorization.split(" ")[1];
+    const payload = jwt.verify(token, process.env.TOKEN_KEY);
+    const id = payload._id;
+    // const {id} = req.params;
     const deleted = await UserData.findByIdAndDelete(id);
 
     if (deleted) {
