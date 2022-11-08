@@ -47,6 +47,7 @@ export const createSpaceItem = async (req, res) => {
 
 export const buySpaceItem = async (req, res) => {
   try {
+    const {id}  = req.body._id
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
     const spaceItem = await SpaceItem.findByIdAndUpdate(id, {
