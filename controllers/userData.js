@@ -183,6 +183,7 @@ export const deleteUser = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
     const id = payload._id;
+    console.log(id)
     // const {id} = req.params;
     const deleted = await UserData.findByIdAndDelete(id);
 
