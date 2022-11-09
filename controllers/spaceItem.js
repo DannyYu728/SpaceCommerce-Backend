@@ -58,9 +58,11 @@ export const buySpaceItem = async (req, res) => {
       $set: { owner: payload._id },
     });
     prevOwner = prevItem.owner;
-    await User.findByIdAndUpdate(prevOwner, {
-      $pull: { listing: spaceItem._id },
-    });
+    if (prevOwner) {
+      await User.findByIdAndUpdate(prevOwner, {
+        $pull: { listing: spaceItem._id },
+      });
+    }
     await User.findByIdAndUpdate(payload._id, {
       $push: { listing: spaceItem._id },
     });
