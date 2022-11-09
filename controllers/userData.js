@@ -98,12 +98,7 @@ export const verify = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   try {
-    const { id } = req.params
-
     const { password, newPassword, username } = req.body
-    // const user = UserData.findById(id).select(
-    //   'username email password_digest'
-    // )
     const user = await UserData.findOne({ username: username }).select(
       'username email password_digest'
     )
@@ -158,7 +153,6 @@ export const getUser = async (req, res) => {
   }
 }
 
-//for Dev purposes
 export const getUsername = async (req, res) => {
   try {
     const user = await UserData.find({username: req.params.username})
@@ -201,8 +195,6 @@ export const deleteUser = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
     const id = payload._id;
-    console.log(id)
-    // const {id} = req.params;
     const deleted = await UserData.findByIdAndDelete(id);
 
     if (deleted) {
