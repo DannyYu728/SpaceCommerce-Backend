@@ -61,7 +61,7 @@ export const signIn = async (req, res) => {
     const { username, password } = req.body
     const user = await UserData.findOne({ username: username }).select(
       'username email password_digest'
-    ).populate("listing")
+    ).populate("listing").populate("image")
     if (await bcrypt.compare(password, user.password_digest)) {
       const payload = {
         _id: user._id,
