@@ -27,12 +27,13 @@ export const getUsers = async (req, res) => {
 
 export const signUp = async (req, res) => {
   try {
-    const { username, email, password } = req.body
+    const { username, email, password, avatar } = req.body
     const password_digest = await bcrypt.hash(password, SALT_ROUNDS)
     const user = new UserData({
       username,
       email,
       password_digest,
+      avatar,
     })
 
     await user.save()
