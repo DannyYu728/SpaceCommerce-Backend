@@ -15,7 +15,9 @@ export const getSpaceItems = async (req, res) => {
 export const getSpaceItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const spaceItem = await SpaceItem.findById(id).populate("image").populate("owner");
+    const spaceItem = await SpaceItem.findById(id)
+      .populate("image")
+      .populate("owner");
 
     if (spaceItem) {
       return res.json(spaceItem);
@@ -36,7 +38,7 @@ export const createSpaceItem = async (req, res) => {
     spaceItem.owner = payload._id;
     await spaceItem.save();
     await User.findByIdAndUpdate(payload._id, {
-      $push: {"listing": spaceItem._id}
+      $push: { listing: spaceItem._id },
     });
     res.status(201).json(spaceItem);
   } catch (error) {
@@ -48,18 +50,19 @@ export const createSpaceItem = async (req, res) => {
 // NOT TESTED YET
 export const buySpaceItem = async (req, res) => {
   try {
-    const {id}  = req.body._id
+    const { id } = req.params;
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
+    const prevItem = await SpaceItem.findById(id);
     const spaceItem = await SpaceItem.findByIdAndUpdate(id, {
-      $set: {owner: payload._id}
+      $set: { owner: payload._id },
     });
-    const prevOwner = id
+    prevOwner = prevItem.owner;
     await User.findByIdAndUpdate(prevOwner, {
-      $pull: {"listing": spaceItem._id}
+      $pull: { listing: spaceItem._id },
     });
     await User.findByIdAndUpdate(payload._id, {
-      $push: {"listing": spaceItem._id}
+      $push: { listing: spaceItem._id },
     });
     res.status(201).json(spaceItem);
   } catch (error) {
