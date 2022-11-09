@@ -54,11 +54,11 @@ export const buySpaceItem = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.TOKEN_KEY);
     const prevItem = await SpaceItem.findById(id);
+    const prevOwner = prevItem.owner;
     const spaceItem = await SpaceItem.findByIdAndUpdate(id, {
       $set: { owner: payload._id },
     });
-    prevOwner = prevItem.owner;
-    if (!prevOwner) {
+    if (prevOwner) {
       await User.findByIdAndUpdate(prevOwner, {
         $pull: { listing: spaceItem._id },
       });
