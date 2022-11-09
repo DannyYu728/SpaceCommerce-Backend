@@ -158,6 +158,7 @@ export const getUser = async (req, res) => {
   }
 }
 
+//for Dev purposes
 export const getUsername = async (req, res) => {
   try {
     const user = await UserData.find({username: req.params.username})
@@ -171,6 +172,7 @@ export const getUsername = async (req, res) => {
   }
 };
 
+//for Dev purposes
 export const createUser = async (req, res) => {
   try {
     const user = new UserData(req.body);
@@ -182,6 +184,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+//for Dev purposes
 export const updateUser = async (req, res) => {
   try {
     const {id} = req.params;

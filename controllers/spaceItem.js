@@ -45,6 +45,7 @@ export const createSpaceItem = async (req, res) => {
   }
 };
 
+// NOT TESTED YET
 export const buySpaceItem = async (req, res) => {
   try {
     const {id}  = req.body._id
@@ -67,6 +68,7 @@ export const buySpaceItem = async (req, res) => {
   }
 };
 
+// NOT Used Yet
 export const updateSpaceItem = async (req, res) => {
   try {
     const { id } = req.params;
@@ -78,6 +80,7 @@ export const updateSpaceItem = async (req, res) => {
   }
 };
 
+// NOT Used Yet
 export const deleteSpaceItem = async (req, res) => {
   try {
     const { id } = req.params;
