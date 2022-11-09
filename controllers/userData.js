@@ -1,19 +1,19 @@
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import UserData from "../models/UserData.js";
 
-let SALT_ROUNDS = 12
-let TOKEN_KEY = 'devkeyisnotthatgreat'
+let SALT_ROUNDS = 12;
+let TOKEN_KEY = "devkeyisnotthatgreat";
 
-if (process.env.NODE_ENV === 'production') {
-  SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
-  TOKEN_KEY = process.env.TOKEN_KEY
+if (process.env.NODE_ENV === "production") {
+  SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
+  TOKEN_KEY = process.env.TOKEN_KEY;
 }
 
-const today = new Date()
-const exp = new Date(today)
-exp.setDate(today.getDate() + 30)
+const today = new Date();
+const exp = new Date(today);
+exp.setDate(today.getDate() + 30);
 
 export const getUsers = async (req, res) => {
   try {
@@ -21,22 +21,22 @@ export const getUsers = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 };
 
 export const signUp = async (req, res) => {
   try {
-    const { username, email, password, avatar } = req.body
-    const password_digest = await bcrypt.hash(password, SALT_ROUNDS)
+    const { username, email, password, avatar } = req.body;
+    const password_digest = await bcrypt.hash(password, SALT_ROUNDS);
     const user = new UserData({
       username,
       email,
       password_digest,
       avatar,
-    })
+    });
 
-    await user.save()
+    await user.save();
 
     const payload = {
       _id: user._id,
@@ -46,28 +46,29 @@ export const signUp = async (req, res) => {
       favoriteItems: user.favoriteItems,
       listing: user.listing,
       exp: parseInt(exp.getTime() / 1000),
-    }
+    };
 
-    const token = jwt.sign(payload, TOKEN_KEY)
-    res.status(201).json({ token })
+    const token = jwt.sign(payload, TOKEN_KEY);
+    res.status(201).json({ token });
   } catch (error) {
-    console.log(error.message)
-    res.status(400).json({ error: error.message })
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 export const signIn = async (req, res) => {
   try {
-    const { username, password } = req.body
-    const user = await UserData.findOne({ username: username }).select(
-      'username email password_digest'
-    ).populate({ 
-      path: 'listing',
+    const { username, password } = req.body;
+    const user = await UserData.findOne({ username: username }).populate({
+      path: "listing",
       populate: {
-        path: 'image',
-        model: 'image'
-      } 
-   })
+        path: "image",
+        model: "image",
+      },
+    });
+    // .select(
+    //   'username email password_digest'
+    // )
     if (await bcrypt.compare(password, user.password_digest)) {
       const payload = {
         _id: user._id,
@@ -77,42 +78,42 @@ export const signIn = async (req, res) => {
         favoriteItems: user.favoriteItems,
         listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
-      }
+      };
 
-      const token = jwt.sign(payload, TOKEN_KEY)
-      res.status(201).json({ token })
+      const token = jwt.sign(payload, TOKEN_KEY);
+      res.status(201).json({ token });
     } else {
-      res.status(401).send('Invalid Credentials')
+      res.status(401).send("Invalid Credentials");
     }
   } catch (error) {
-    console.log(error.message)
-    res.status(500).json({ error: error.message })
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
 export const verify = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]
-    const payload = jwt.verify(token, TOKEN_KEY)
+    const token = req.headers.authorization.split(" ")[1];
+    const payload = jwt.verify(token, TOKEN_KEY);
     if (payload) {
-      res.json(payload)
+      res.json(payload);
     }
   } catch (error) {
-    console.log(error.message)
-    res.status(401).send('Not Authorized')
+    console.log(error.message);
+    res.status(401).send("Not Authorized");
   }
-}
+};
 
 export const changePassword = async (req, res) => {
   try {
-    const { password, newPassword, username } = req.body
+    const { password, newPassword, username } = req.body;
     const user = await UserData.findOne({ username: username }).select(
-      'username email password_digest'
-    )
+      "username email password_digest"
+    );
 
     if (await bcrypt.compare(password, user.password_digest)) {
-      user.password_digest = await bcrypt.hash(newPassword, SALT_ROUNDS)
-      user.save()
+      user.password_digest = await bcrypt.hash(newPassword, SALT_ROUNDS);
+      user.save();
       const payload = {
         _id: user._id,
         username: user.username,
@@ -121,22 +122,22 @@ export const changePassword = async (req, res) => {
         favoriteItems: user.favoriteItems,
         listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
-      }
+      };
 
-      const token = jwt.sign(payload, TOKEN_KEY)
-      res.status(201).json({ token })
+      const token = jwt.sign(payload, TOKEN_KEY);
+      res.status(201).json({ token });
     } else {
-      res.status(401).send('Invalid Credentials')
+      res.status(401).send("Invalid Credentials");
     }
   } catch (error) {
-    console.log(error.message)
-    res.status(500).json({ error: error.message })
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
 export const getUser = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     const user = await UserData.findById(id).populate("listing");
     if (user) {
       const payload = {
@@ -147,29 +148,29 @@ export const getUser = async (req, res) => {
         favoriteItems: user.favoriteItems,
         listing: user.listing,
         exp: parseInt(exp.getTime() / 1000),
-      }
+      };
 
-      const token = jwt.sign(payload, TOKEN_KEY)
-      res.status(201).json({ token })
+      const token = jwt.sign(payload, TOKEN_KEY);
+      res.status(201).json({ token });
     }
-    res.status(404).json({ message: 'Username not found!' })
+    res.status(404).json({ message: "Username not found!" });
     // res.status(201).json(user)
   } catch (error) {
-    console.log(error.message)
-    res.status(500).json({ error: error.message })
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
 export const getUsername = async (req, res) => {
   try {
-    const user = await UserData.find({username: req.params.username})
+    const user = await UserData.find({ username: req.params.username });
     if (user) {
       return res.json(user);
     }
-    res.status(404).json({message: "Username not found!"});
+    res.status(404).json({ message: "Username not found!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -181,19 +182,19 @@ export const createUser = async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 };
 
 //for Dev purposes
 export const updateUser = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const user = await UserData.findByIdAndUpdate(id, req.body, { new: true });
     res.status(201).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -211,6 +212,6 @@ export const deleteUser = async (req, res) => {
     throw new Error("User not found");
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 };
