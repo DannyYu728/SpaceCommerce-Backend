@@ -1,4 +1,5 @@
-# MySpace-Backend
+# MySpace
+
 
 # Description
 This API allows user to retrieve infomration of celestital items. A separate database is assigned for images, items, and users. 
